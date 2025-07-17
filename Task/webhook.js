@@ -24,6 +24,9 @@ module.exports = _ => {
     });
 
     app.get('/', async (req, res) => {
+
+        console.log(`webhook call from : ${req.headers.origin}`)
+
         res.header("Access-Control-Allow-Origin", "*");
         res.header("Access-Control-Allow-Methods", "GET");
         res.header("Access-Control-Allow-Headers", "Content-Type");
@@ -31,6 +34,7 @@ module.exports = _ => {
         var response
         
         if(!authorizedOrigins.includes(req.headers.origin)){
+            
             response = {error : 'you are not authorized'};
         }else{
             // response = await fun.apiQuery(req.query)
@@ -67,6 +71,3 @@ module.exports = _ => {
 
     });
 }
-
-
-
