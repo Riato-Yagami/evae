@@ -8,7 +8,7 @@ module.exports = {
     botToken : tokens.botToken,
     betaBotToken: tokens.betaBotToken,
     webhookToken : tokens.webhookToken,
-    beta : true,
+    beta : false,
     // link : "https://discord.com/api/oauth2/authorize?client_id=1041742351468597258&permissions=2419452992&scope=bot",
     link : 'https://discord.com/api/oauth2/authorize?client_id=1041742351468597258&permissions=2150705216&scope=bot',
     betaLink :"https://discord.com/api/oauth2/authorize?client_id=1074082439200260286&permissions=8&scope=bot",
