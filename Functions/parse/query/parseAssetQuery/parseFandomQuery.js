@@ -71,10 +71,13 @@ module.exports = async (fandomQuery) => {
 
     if(!isValidDate(fandom.released)) fandom.released = ''
     
-    if(fandom.illustration && fandom.illustration != ''){
-        fandom.color = await fun.getDominantColor(fandom.illustration,false)
-        // fandom.color = await runFunctionWithTimeout(fun.getDominantColor,fandom.illustration)
-    }
+    // if(fandom.illustration && fandom.illustration != ''){
+    //     fandom.illustration = cleanImageURL(fandom.illustration)
+    //     // console.log("getting fandom color")
+    //     fandom.color = await fun.getDominantColor(fandom.illustration,false)
+    //     console.log(`Fandom color : ${fandom.color}`)
+    //     // fandom.color = await runFunctionWithTimeout(fun.getDominantColor,fandom.illustration)
+    // }
 
     if(!fandom.color) fandom.color = [255,197,0]
     // console.log(fandom.color)
@@ -102,7 +105,7 @@ module.exports = async (fandomQuery) => {
     fandom.power = fun.rescalePower(fandom.value, stats.max / 1.2, 1.7)
 
     // fun.addToDb(fandom, bot)
-
+    // console.log(fandom)
     return fandom
 }
 
@@ -114,6 +117,10 @@ function sleep(ms) {
     return new Promise((resolve) => {
       setTimeout(resolve, ms);
     });
+}
+
+function cleanImageURL(url) {
+  return url.replace(/\/revision.*/i, '');
 }
 
 async function runFunctionWithTimeout(fun,args) {

@@ -1,12 +1,12 @@
-const key = require(__basedir + "/botSettings/apiKey").pTCG
-
-const queryOptions = {headers: { 'Authorization': `Bearer ${key}`}, json: true};
+const queryOptions = require(__basedir + "/.env/queryOptions.js").poke;
 
 var cardCount = 15851
 module.exports = async bot => {
     page = await getRandomPage()
     const query = `https://api.pokemontcg.io/v2/cards?pageSize=1&page=${page}`
 
+    // console.log("PokeTCG random query:", query);
+    
     const body = await fun.queryAPI(query,queryOptions)
     if(!body) return
     

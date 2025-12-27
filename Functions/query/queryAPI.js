@@ -1,39 +1,45 @@
 const fetch = require('node-fetch');
 const axios = require('axios');
 
-module.exports = async (query,queryOptions = {json: true}, type = 'axios') => {
-    if(!queryOptions) queryOptions = {json: true}
+module.exports = async (query, queryOptions = {}, type = 'axios') => {
     switch (type) {
-        case 'axios':
-            return await qaxios(query,queryOptions)
         case 'fetch':
-            return await qfetch(query,queryOptions)
+        return await qfetch(query, queryOptions);
+        case 'axios':
+        default:
+        return await qaxios(query, queryOptions);
     }
-}
+};
 
-async function qfetch(query,queryOptions){
+async function qfetch(query, queryOptions) {
     try {
-        res = await fetch(query, queryOptions);
+        // Ensure queryOptions is a proper object for node-fetch
+        const fetchOptions = queryOptions || {};
+        if (!fetchOptions.headers) fetchOptions.headers = {};
+
+        const res = await fetch(query, fetchOptions);
         const body = await res.json();
-        // if (res.ok) {
-        //     return body;
-        // }
         return body;
     } catch (err) {
-        // console.log(err);
+        console.error("Fetch error:", err);
         return null;
     }
 }
 
-async function qaxios(query,queryOptions){
+async function qaxios(query, queryOptions) {
     try {
         const response = await axios.get(query, queryOptions);
-        if (response.status >= 200 && response.status < 300) {
-          return response.data;
-        }
-        return null;
+        return response.data;
     } catch (error) {
-        // console.error(error);
+        if (error.response) {
+        console.error(
+            'Axios error:',
+            error.response.status,
+            error.response.data
+        );
+        } else {
+        console.error(error.message);
+        }
         return null;
     }
 }

@@ -1,4 +1,4 @@
-queryOptions = { 'User-Agent': 'evae (https://colordle.net/; jules.pesin@gmail.com) wiki.js' }
+const queryOptions = require(__basedir + "/.env/queryOptions.js").wiki;
 
 module.exports = async (QID,lg) => {
     query = `https://www.wikidata.org/w/api.php?action=wbgetentities&format=json&props=sitelinks&ids=${QID}&sitefilter=${lg}wiki`

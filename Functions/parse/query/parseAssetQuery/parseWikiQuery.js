@@ -36,11 +36,13 @@ module.exports = async (wikiQuery) => {
             )
             {
                 // console.log(trPage.thumbnail.source)
-                wiki.illustration = trPage.thumbnail.source
+                wiki.illustration = toWikiThumb(trPage.thumbnail.source);
                 break
             }
         };
-    }else{ wiki.illustration = wikiQuery.thumbnail.source }
+    }else{ wiki.illustration = toWikiThumb(wikiQuery.thumbnail.source);}
+
+    // console.log("[QUERY] Wiki illustration:", wiki.illustration);
 
     wiki.color = await fun.getDominantColor(wiki.illustration)
 
@@ -59,4 +61,21 @@ module.exports = async (wikiQuery) => {
     // console.log(wiki)
 
     return wiki
+}
+
+function toWikiThumb(url, size = 512) {
+    if (!url || !url.includes('upload.wikimedia.org')) return url;
+
+    // Already a thumb URL
+    if (url.includes('/thumb/')) return url;
+
+    try {
+        const parts = url.split('/');
+        const filename = encodeURIComponent(parts.pop());
+        const path = parts.join('/');
+
+        return `${path}/thumb/${filename}/${size}px-${filename}`;
+    } catch {
+        return url;
+    }
 }

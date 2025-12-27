@@ -1,4 +1,4 @@
-queryOptions = { 'User-Agent': 'evae (https://colordle.net/; jules.pesin@gmail.com) wiki.js' }
+const queryOptions = require(__basedir + "/.env/queryOptions.js").wiki;
 
 module.exports = async (title,lg) => {
     const formatedTitle = encodeURIComponent(title)

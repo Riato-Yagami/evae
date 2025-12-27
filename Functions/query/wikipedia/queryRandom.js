@@ -1,12 +1,15 @@
-queryOptions = { 'User-Agent': 'evae (https://colordle.net/; jules.pesin@gmail.com) wiki.js' }
-
+const queryOptions = require(__basedir + "/.env/queryOptions.js").wiki;
 
 module.exports = async (lg) => {
+    const query = `https://${lg}.wikipedia.org/api/rest_v1/page/random/summary`;
 
-    const query = `https://${lg}.wikipedia.org/api/rest_v1/page/random/summary`
-    
-    const body = await fun.queryAPI(query, queryOptions)
-    if(!body) return
+    // console.log("Wikipedia random query:", query);
 
-    return body
-}
+    const body = await fun.queryAPI(query, queryOptions);
+
+    // console.log("Wikipedia random query result:", body);
+
+    if (!body) return null;
+
+    return body;
+};

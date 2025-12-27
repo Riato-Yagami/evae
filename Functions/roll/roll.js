@@ -26,12 +26,24 @@ async function roll(message, prefix, option, rollCount = 0){
         asset = await fun.rollQueue(prefix)
         // console.log("rollQueue")
     }
+
+    // if(asset){
+    //     console.log("found asset in special queue:", asset.title)
+    // }else{
+    //     console.log("no asset in special queue")
+    // }
+    // console.log("found asset in queue:", asset.title)
     
     if(!asset){
         const category = Object.keys(prx).find(key => prx[key] === prefix);
+
+        // console.log("rolling in category:", category)
+
         const rollFun = tblFun.roll[category];
         
         let assetQuery = await rollFun(message,option)
+
+        // console.log("assetQuery:", assetQuery)
 
         if(typeof assetQuery === 'string'){
             fun.reply(message,assetQuery)
@@ -41,6 +53,9 @@ async function roll(message, prefix, option, rollCount = 0){
             asset = await parser(assetQuery)
         } 
     }
+
+    // console.log("rolled asset:", asset ? asset.title : null)
+    // console.log("illustration :", asset ? asset.illustration : null)
 
     if(!asset){
         fun.reply(message,'Roll failed 🚫')

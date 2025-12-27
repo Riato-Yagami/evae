@@ -3,7 +3,7 @@ const config = require(__basedir + "/config")
 const prx = table.prefix
 const tblFun = require(__basedir + "/botSettings/table/tableFun")
 
-const queueMax = config.beta? 2 : 5
+const queueMax = config.beta? 2 : 8
 
 const queuing = {
     fandom: false , 
@@ -15,6 +15,7 @@ const queuing = {
 }
 
 module.exports = async (prefix) => {
+    // console.log("rollQueue called with prefix:", prefix)
     if(!prefix){
         // updateQueue()
         return
@@ -51,6 +52,7 @@ async function enqueue(category){
 }
 
 async function queue(category) {
+    // console.log(`queuing in category: ${category}`)
     const asset = await roll(category)
     if(!asset) return
     fun.addToDb(asset)

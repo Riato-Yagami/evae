@@ -58,7 +58,8 @@ module.exports = {
         } 
 
         let player = message.player
-
+        
+        // const rollLeft = 10;
         const rollLeft = player.rolls + player.bonusRoll
         if(rollLeft - rollCost < 0){
             const rollText = fun.rollText(player)
@@ -75,6 +76,7 @@ module.exports = {
 
         const asset = await fun.roll(message,prefix,option)
 
+        // console.log(asset)
         if(!asset) return
 
         const replyEmbed = await fun.buildAssetEmbed(message,asset)

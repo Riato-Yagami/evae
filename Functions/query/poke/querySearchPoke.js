@@ -1,6 +1,4 @@
-const key = require(__basedir + "/botSettings/apiKey").tmdb
-
-const queryOptions = {headers: { 'Authorization': `Bearer ${key}`}, json: true};
+const queryOptions = require(__basedir + "/.env/queryOptions.js").poke;
 
 module.exports = async (search,setname) => {
     const formatedSearch = encodeURIComponent(search)
